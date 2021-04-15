@@ -120,6 +120,34 @@ class OAIMetadataFormatPlugin_DCWGL extends OAIMetadataFormatPlugin {
 		);
 	}
 
+	/**
+         * @copydoc Plugin::manage()
+         */
+        function manage($args, $request) {
+                $this->import('classes.form.WGLSettingsForm');
+                switch($request->getUserVar('verb')) {
+                        case 'settings':
+                                $settingsForm = new WGLSettingsForm($this, $request->getContext()->getId());
+                                $settingsForm->initData($request);
+                                return new JSONMessage(true, $settingsForm->fetch($request));
+                        case 'save':
+                                $settingsForm = new WGLSettingsForm($this, $request->getContext()->getId());
+                                $settingsForm->readInputData();
+                                if ($settingsForm->validate()) {
+                                        $settingsForm->execute();
+                                        $notificationManager = new NotificationManager();
+                                        $notificationManager->createTrivialNotification(
+                                                $request->getUser()->getId(),
+                                                NOTIFICATION_TYPE_SUCCESS
+                                        );
+                                        return new JSONMessage(true);
+                                }
+                                return new JSONMessage(true, $settingsForm->fetch($request));
+                }
+                return parent::manage($args, $request);
+        }
+
+	/*
 	function manage($args, $request) {
 		$this->import('classes.form.WGLSettingsForm');
 		$context = Request::getContext();
@@ -145,7 +173,7 @@ class OAIMetadataFormatPlugin_DCWGL extends OAIMetadataFormatPlugin {
 		}
 		return parent::manage($args, $request);
 	}
-
+	*/
 
 }
 

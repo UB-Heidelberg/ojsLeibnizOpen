@@ -17,6 +17,7 @@
 	<!-- settings -->
 	<message key="plugins.OAIMetadata.wgl.settings.title">Leibniz Open OAI Plugin</message>
 	<message key="plugins.OAIMetadata.wgl.settings.description">Definieren Sie die Liste der unterstützenden Einrichtungen, die Sie für Leibniz Plugin hinzufügen möchten. </message>
+        <message key="plugins.OAIMetadata.wgl.settings.list">Liste</message>
 	<!--notifications -->
 	<message key="plugins.OAIMetadata.wgl.settings.saved">Leibniz Open OAI plugin settings gespeichert</message>
 
