@@ -28,36 +28,28 @@ class OAIMetadataFormat_DCWGL extends PKPOAIMetadataFormat_DC
 	 * @return string
 	 */
 	public function toXml($record, $format = null) {
+		//error_log("record: " . var_export($record,true));
 		$submission = $record->getData('article');
 		$submission = (!empty($submission)) ? $submission : $record->getData('monograph');
+		// TODO: LatestPublication oder CurrentPublication
+		$publication = $submission->getLatestPublication();
+		//$publication = $submission->getCurrentPublication();
 
 		$publicationFormat = $record->getData('publicationFormat');
-		// ToDO: Müsste das nicht einfach $format ein (wie bei DC-Plugin)?
+		// TODO: Müsste das nicht einfach $format ein (wie bei DC-Plugin)?
 		$doc = parent::toXml($submission, $publicationFormat);
-		//$doc = parent::toXml($submission, $format);
 		$dom = DOMDocument::loadXML($doc);
 		$dom->formatOutput = true;
 		$dom->encoding = 'UTF-8';
 		
-		// DEBUGGING
-		//return $doc;
-		
-		$siteAgencies = $this->_getSiteAgencies($submission);
-
+		$siteAgencies = $this->_getSiteAgencies($publication);
 		$submissionAgencies = $this->_getSubmissionAgencies();
 
-		// DEBUGGING
-		// error_log("siteAgencies " .  var_export($siteAgencies,true));
-		// error_log("submissionAgencies " .  var_export($submissionAgencies,true));
-		
 		$isLeibnizAgency = false;
 		$leibnizAgency = array();
 
 		if (isset($submissionAgencies) & !empty($submissionAgencies)) {
 			$leibnizAgencies = explode('|', $submissionAgencies);
-			// DEBUGGING
-			error_log(var_export($leibnizAgencies,true));
-			error_log(var_export($siteAgencies,true));
 			foreach ($leibnizAgencies as $agency) {
 				$agency = explode(':', $agency);
 				foreach ($siteAgencies as $agenciesInSubmission) {
@@ -71,10 +63,6 @@ class OAIMetadataFormat_DCWGL extends PKPOAIMetadataFormat_DC
 				}
 			}
 		}
-
-		// DEBUGGING
-		// error_log($isLeibnizAgency);
-		// $isLeibnizAgency = true;
 
 		if ($isLeibnizAgency) {
 			$xpath = new DOMXPath($dom);
@@ -141,11 +129,11 @@ class OAIMetadataFormat_DCWGL extends PKPOAIMetadataFormat_DC
 	 * @param $submission
 	 * @return mixed
 	 */
-	protected function _getSiteAgencies($submission) {
+	protected function _getSiteAgencies($publication) {
 		$site = Application::getRequest()->getSite();
 		$submissionAgencyDao = DAORegistry::getDAO('SubmissionAgencyDAO');
 		$siteSupportedLocales = $site->getSupportedLocales();
-		$agencies = $submissionAgencyDao->getAgencies($submission->getId(), $siteSupportedLocales);
+		$agencies = $submissionAgencyDao->getAgencies($publication->getId(), $siteSupportedLocales);
 		return $agencies;
 	}
 
@@ -153,9 +141,6 @@ class OAIMetadataFormat_DCWGL extends PKPOAIMetadataFormat_DC
 	 * @return mixed
 	 */
 	protected function _getSubmissionAgencies() {	
-		//$context = Request::getContext();
-		//$contextId = $context ? $context->getId() : CONTEXT_ID_NONE;
-		//$context = $this->getContext();
 		$context = Application::get()->getRequest()->getContext();
 		$contextId =  $context->getId();
 		$plugin = PluginRegistry::getPlugin('oaiMetadataFormats', 'OAIMetadataFormatPlugin_DCWGL');
