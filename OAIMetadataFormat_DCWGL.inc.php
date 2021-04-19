@@ -68,6 +68,7 @@ class OAIMetadataFormat_DCWGL extends PKPOAIMetadataFormat_DC
 			$wgl = $dom->createElementNS('http://www.leibnizopen.de/fileadmin/default/documents/oai_wgl', 'oai_wgl:wgl');
 			$wgl = $this->_renameDCElements($xpath, $dom, $wgl);
 			$wgl = $this->_setWGLType($submission, $dom, $wgl);
+			$contributorElement = $dom->createElement('wgl:wglcontributor', trim($leibnizAgency[0]));
 			$wgl->appendChild($contributorElement);
 		
 			$subjectElement = $dom->createElement('wgl:wglsubject', trim($leibnizAgency[1]));
