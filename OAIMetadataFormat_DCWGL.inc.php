@@ -28,7 +28,6 @@ class OAIMetadataFormat_DCWGL extends PKPOAIMetadataFormat_DC
 	 * @return string
 	 */
 	public function toXml($record, $format = null) {
-		//error_log("record: " . var_export($record,true));
 		$submission = $record->getData('article');
 		$submission = (!empty($submission)) ? $submission : $record->getData('monograph');
 		// TODO: LatestPublication oder CurrentPublication
@@ -66,23 +65,16 @@ class OAIMetadataFormat_DCWGL extends PKPOAIMetadataFormat_DC
 
 		if ($isLeibnizAgency) {
 			$xpath = new DOMXPath($dom);
-
 			$wgl = $dom->createElementNS('http://www.leibnizopen.de/fileadmin/default/documents/oai_wgl', 'oai_wgl:wgl');
-
 			$wgl = $this->_renameDCElements($xpath, $dom, $wgl);
-
 			$wgl = $this->_setWGLType($submission, $dom, $wgl);
-
-			$contributorElement = $dom->createElement('wgl:wglcontributor', trim($leibnizAgency[0]));
 			$wgl->appendChild($contributorElement);
-
+		
 			$subjectElement = $dom->createElement('wgl:wglsubject', trim($leibnizAgency[1]));
 			$wgl->appendChild($subjectElement);
-
 			$this->_deleteDCElements($xpath);
-
 			$dom->appendChild($wgl);
-
+		
 			$wglString = $dom->saveXML($wgl);
 			$wglNamespace = "<oai_wgl:wgl" .
 				"\txmlns:wgl=\"http://www.leibnizopen.de/fileadmin/default/documents/wgl_dc/\"" .
@@ -113,7 +105,6 @@ class OAIMetadataFormat_DCWGL extends PKPOAIMetadataFormat_DC
 
 		if (!$node->childNodes)
 			return $newElement;
-
 
 		foreach ($node->childNodes as $child) {
 			if ($child->nodeName == "#text")
@@ -154,8 +145,7 @@ class OAIMetadataFormat_DCWGL extends PKPOAIMetadataFormat_DC
 	 * @param $ne
 	 * @return mixed
 	 */
-	protected function _renameDCElements(DOMXPath $xpath, $dom, $ne)
-	{
+	protected function _renameDCElements(DOMXPath $xpath, $dom, $ne) {
 		$dcElements = $xpath->query("//oai_dc:dc/*");
 		foreach ($dcElements as $node) {
 			$clone = $this->renameNamespace($node, $dom, 'wgl');
@@ -170,8 +160,7 @@ class OAIMetadataFormat_DCWGL extends PKPOAIMetadataFormat_DC
 	 * @param $dom
 	 * @param $ne
 	 */
-	protected function _setWGLType($submission, $dom, $ne)
-	{
+	protected function _setWGLType($submission, $dom, $ne) {
 		if (is_a($submission, 'PublishedArticle')) {
 			$extraElement = $dom->createElement('wgl:wgltype', 'Zeitschriftenartikel');
 			$ne->appendChild($extraElement);
@@ -185,8 +174,7 @@ class OAIMetadataFormat_DCWGL extends PKPOAIMetadataFormat_DC
 	/**
 	 * @param DOMXPath $xpath
 	 */
-	protected function _deleteDCElements(DOMXPath $xpath)
-	{
+	protected function _deleteDCElements(DOMXPath $xpath) {
 		$oaiDCElement = $xpath->query("//oai_dc:dc")->item(0);
 		$getParent = $oaiDCElement->parentNode;
 		$getParent->removeChild($oaiDCElement);
