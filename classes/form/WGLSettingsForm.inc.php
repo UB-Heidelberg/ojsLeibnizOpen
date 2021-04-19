@@ -98,4 +98,4 @@ class WGLSettingsForm extends Form
 			'list' => 'string',
 		);
         }
-
+}
