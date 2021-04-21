@@ -36,6 +36,7 @@ class OAIMetadataFormat_DCWGL extends PKPOAIMetadataFormat_DC
 
 		$publicationFormat = $record->getData('publicationFormat');
 		// TODO: Müsste das nicht einfach $format ein (wie bei DC-Plugin)?
+		// $doc = parent::toXml($submission, $publication);
 		$doc = parent::toXml($submission, $publicationFormat);
 		$dom = DOMDocument::loadXML($doc);
 		$dom->formatOutput = true;
