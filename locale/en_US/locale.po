@@ -1,0 +1,27 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: \n"
+"Report-Msgid-Bugs-To: \n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"POT-Creation-Date: 2019-09-30T07:09:52-07:00\n"
+"PO-Revision-Date: 2019-09-30T07:09:52-07:00\n"
+"Language: \n"
+
+msgid "plugins.OAIMetadata.wgl.displayName"
+msgstr "WGL Metadata Format"
+
+msgid "plugins.OAIMetadata.wgl.description"
+msgstr "Structures metadata in a way that is consistent with the WGL format."
+
+msgid "plugins.OAIMetadata.wgl.settings.title"
+msgstr "Leibniz Open OAI Plugin"
+
+msgid "plugins.OAIMetadata.wgl.settings.description"
+msgstr "Define the list of supporting agencies, you like to include for Leibniz Plugin. "
+
+msgid "plugins.OAIMetadata.wgl.settings.saved"
+msgstr "Leibniz Open OAI plugin settings saved"
