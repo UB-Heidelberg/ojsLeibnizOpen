@@ -21,7 +21,7 @@ msgid "plugins.OAIMetadata.wgl.settings.title"
 msgstr "Leibniz Open OAI Plugin"
 
 msgid "plugins.OAIMetadata.wgl.settings.description"
-msgstr "Definieren Sie die Liste der unterstützenden Einrichtungen, die Sie für Leibniz Plugin hinzufügen möchten. "
+msgstr "Definieren Sie die Liste der unterstützenden Einrichtungen, die Sie für das Leibniz Plugin hinzufügen möchten. "
 
 msgid "plugins.OAIMetadata.wgl.settings.saved"
-msgstr "Leibniz Open OAI plugin settings gespeichert"
+msgstr "Leibniz Open OAI Plugin Einstellungen gespeichert"

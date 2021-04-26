@@ -35,7 +35,7 @@ class OAIMetadataFormat_DCWGL extends PKPOAIMetadataFormat_DC
 		//$publication = $submission->getCurrentPublication();
 
 		$publicationFormat = $record->getData('publicationFormat');
-		if ( NULL === $record->getData('article') || empty($record->getData('article')) ) {//OMP
+		if (NULL === $record->getData('article') || empty($record->getData('article'))) {//OMP
 			$doc = parent::toXml($publicationFormat, $format);
 		} else {//OJS
 			// TODO: Müsste das nicht einfach $format ein (wie bei DC-Plugin)?
