@@ -35,12 +35,18 @@ class OAIMetadataFormat_DCWGL extends PKPOAIMetadataFormat_DC
 		//$publication = $submission->getCurrentPublication();
 
 		$publicationFormat = $record->getData('publicationFormat');
-		// TODO: Müsste das nicht einfach $format ein (wie bei DC-Plugin)?
-		$doc = parent::toXml($submission, $publicationFormat);
+		if ( NULL === $record->getData('article') || empty($record->getData('article')) ) {//OMP
+			$doc = parent::toXml($publicationFormat, $format);
+		} else {//OJS
+			// TODO: Müsste das nicht einfach $format ein (wie bei DC-Plugin)?
+			// $doc = parent::toXml($submission, $publication);
+			$doc = parent::toXml($submission, $publicationFormat);
+		}
+
 		$dom = DOMDocument::loadXML($doc);
 		$dom->formatOutput = true;
 		$dom->encoding = 'UTF-8';
-		
+
 		$siteAgencies = $this->_getSiteAgencies($publication);
 		$submissionAgencies = $this->_getSubmissionAgencies();
 
@@ -70,12 +76,12 @@ class OAIMetadataFormat_DCWGL extends PKPOAIMetadataFormat_DC
 			$wgl = $this->_setWGLType($submission, $dom, $wgl);
 			$contributorElement = $dom->createElement('wgl:wglcontributor', trim($leibnizAgency[0]));
 			$wgl->appendChild($contributorElement);
-		
+
 			$subjectElement = $dom->createElement('wgl:wglsubject', trim($leibnizAgency[1]));
 			$wgl->appendChild($subjectElement);
 			$this->_deleteDCElements($xpath);
 			$dom->appendChild($wgl);
-		
+
 			$wglString = $dom->saveXML($wgl);
 			$wglNamespace = "<oai_wgl:wgl" .
 				"\txmlns:wgl=\"http://www.leibnizopen.de/fileadmin/default/documents/wgl_dc/\"" .
@@ -132,7 +138,7 @@ class OAIMetadataFormat_DCWGL extends PKPOAIMetadataFormat_DC
 	/**
 	 * @return mixed
 	 */
-	protected function _getSubmissionAgencies() {	
+	protected function _getSubmissionAgencies() {
 		$context = Application::get()->getRequest()->getContext();
 		$contextId =  $context->getId();
 		$plugin = PluginRegistry::getPlugin('oaiMetadataFormats', 'OAIMetadataFormatPlugin_DCWGL');
