@@ -1,8 +1,8 @@
 
-##  Leibniz-Open OAI Metadata Plugin for OJS 3.1.x and OMP 3.1.x
+##  Leibniz-Open OAI Metadata Plugin for OJS 3.2.x and OMP 3.3.x
 
-OAI plugin for [Open Journal Systems](https://github.com/pkp/ojs) and [Open Monograph Press](https://github.com/pkp/omp) 
-which exposes metadata in the leibniz harvesting scheme. 
+OAI plugin for [Open Journal Systems](https://github.com/pkp/ojs) and [Open Monograph Press](https://github.com/pkp/omp)
+which exposes metadata in the leibniz harvesting scheme.
 
 http://www.leibnizopen.de/fileadmin/default/documents/oai_wgl/oai_wgl.xsd
 
@@ -11,20 +11,20 @@ This plugin exposes metadata in OJS/ OMP OAI interface in the Lebiniz-Open metad
 
 
 ## License
-This plugin is licensed under the GNU General Public License v3. 
+This plugin is licensed under the GNU General Public License v3.
 
 ## Compatibility
-This plugin is compatible with OJS 3.1.x and OMP 3.1.x
+This plugin is compatible with OJS 3.2.x and OMP 3.3.x
 
 ## Installation
 
 via git
- 
+
 ```bash
 cd $OJS_ROOT
 cd plugins/oaiMetadataFormats/
 git clone https://www.github.com/withanage/ojsLeibnizOpen wgl
-git checkout your_branch 
+git checkout your_branch
 
 ```
 
@@ -32,21 +32,21 @@ via zip file (tar.gz)
 
   - Unpack the plugin tar.gz file to your plugins/oaiMetadataFormats directory
    (see [Releases](https://github.com/withanage/ojsLeibnizOpen/releases))
- 
-## Settings   
+
+## Settings
   - Navigate to Management > Website Settings > Plugins > OAI Metadata Format Plugins
   - Enable checkbox beside "WGL Metadata Format Plugin"
   - Click settings
   - Set the list of Leibniz-Institutes in following format.
    `Agency1:Agency1 Description | Agency2:Agency2 Description `
-   
+
    - ![Settings](static/plugin_settings.png)
-   
-  - In your submissions catalog entry add the agency name  e.g. Agency1 
- 
+
+  - In your submissions catalog entry add the agency name  e.g. Agency1
+
  ## Output example
  ```xml
- 
+
 <?xml version="1.0" encoding="UTF-8"?>
 <?xml-stylesheet type="text/xsl" href="http://localhost:8002/lib/pkp/xml/oai2.xsl" ?>
 <OAI-PMH xmlns="http://www.openarchives.org/OAI/2.0/"
@@ -84,10 +84,11 @@ via zip file (tar.gz)
 	</ListRecords>
 </OAI-PMH>
 
- ``` 
+ ```
 
 ## Author
 
 Dulip Withanage https://www.github.com/withanage
+
 
 
